@@ -16,20 +16,20 @@ upload_dest = ""
 port        = 0
 
 def usage ():
-    print "RABID Net Tool"
-    print
-    print "Usage: rabidnet.py -t target_host -p port"
-    print "-l --listen    - listen on [host]:[port] for incoming connections"
-    print "-e --execute=file_to_run - execute a given file"
-    print "-c --command - initialize a command shell"
-    print "-u --upload=destination  - upon receiving connection upload a file and write to destination"
-    print
-    print
-    print "Examples:"
-    print "rabidnet.py -t 192.168.0.1 -p 5555 -l -c"
-    print "rabidnet.py -t 192.168.0.1 -p 5555 -l -u=c:\\target.exe"
-    print "rabidnet.py -t 192.168.0.1 -p 5555 -l -e=\"cat /etc/passwd\""
-    print "echo 'ABCDEFGHI' | ./rabidnet.py -t 192.168.11.12 -p 135"
+    print("RABID Net Tool")
+    print()
+    print ("Usage: rabidnet.py -t target_host -p port")
+    print ("-l --listen    - listen on [host]:[port] for incoming connections")
+    print ("-e --execute=file_to_run - execute a given file")
+    print ("-c --command - initialize a command shell")
+    print ("-u --upload=destination  - upon receiving connection upload a file and write to destination")
+    print()
+    print()
+    print ("Examples:")
+    print ("rabidnet.py -t 192.168.0.1 -p 5555 -l -c")
+    print ("rabidnet.py -t 192.168.0.1 -p 5555 -l -u=c:\\target.exe")
+    print ("rabidnet.py -t 192.168.0.1 -p 5555 -l -e=\"cat /etc/passwd\"")
+    print ("echo 'ABCDEFGHI' | ./rabidnet.py -t 192.168.11.12 -p 135")
     sys.exit(0)
 
 def client_sender(buffer):
@@ -55,7 +55,7 @@ def client_sender(buffer):
                 if recv_len < 4096:
                     break
 
-            print response,
+            print (response),
 
             #wait for input
             buffer = raw_input("")
@@ -64,7 +64,7 @@ def client_sender(buffer):
             client.send(buffer)
 
     except:
-        print "[*] Exception! went to shit, exiting."
+        print ("[*] Exception! went to shit, exiting.")
         client.close()
 
             
@@ -140,7 +140,8 @@ def client_handler(client_socket):
                     response = run_command(cmd_buffer)
 
                     client_socket.send(response)
-                    
+        except:
+            print("[!!] Error")
 
 
 def main():
@@ -151,13 +152,13 @@ def main():
     global upload_dest
     global target
 
-    if not len(sys,argv[1:]):
+    if not len(sys.argv[1:]):
         usage()
 
     try :
         opts, args = getopt.getopt(sys.argv[1:], "hle:t:p:cu", ["help","listen","execute","target","port","command","upload"])
     except getopt.GetoptError as err:
-        print str(err)
+        print( str(err))
         usage()
 
     for o,a in opts:
