@@ -138,7 +138,10 @@ def main():
     #before sending to remote host
     receive_first = sys.argv[5]
 
-    receive_first = bool(receive_first)
+    if "True" in receive_first:
+        receive_first = True
+    else:
+        receive_first = False
 
     server_loop(local_host, local_port, remote_host, remote_port, receive_first)
 
